@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import ListType from "../components/ListType";
 import ListMove from "../components/ListMove";
-import pokepedia from "../idb";
+import { openDB } from "idb";
 import { v4 as uuidv4 } from "uuid";
 
 /* @jsxImportSource @emotion/react */
@@ -125,8 +125,9 @@ function Pokemon() {
       icon: imgUrl.sprites.front_default,
       artwork: imgUrl.sprites.other["official-artwork"].front_default,
     };
-    (await pokepedia.db1)
-      .add("pokemon", JSON.stringify(obj), nickname)
+    const db1 = await openDB("PokemonIDB", 1);
+    db1
+      .add("storePokemon", JSON.stringify(obj), nickname)
       .then((result) => {
         setOwned((owned) => [...owned, obj]);
         setModalDisplay("none");

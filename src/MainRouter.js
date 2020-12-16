@@ -23,10 +23,10 @@ const Q_POKEMON_LIST = gql`
 `;
 
 function createIdb() {
-  openDB("pokepedia", 1, {
+  openDB("PokemonIDB", 1, {
     upgrade(db) {
-      db.createObjectStore("user");
-      db.createObjectStore("pokemon");
+      db.createObjectStore("storeUser");
+      db.createObjectStore("storePokemon");
     },
   });
 }
@@ -37,9 +37,9 @@ const MainRouter = () => {
 
   useEffect(() => {
     const getOwnedPokemon = async () => {
-      const db1 = await openDB("pokepedia", 1);
+      const db1 = await openDB("PokemonIDB", 1);
       db1
-        .getAll("pokemon")
+        .getAll("storePokemon")
         .then((data) =>
           data.map((row) => setOwned((owned) => [...owned, JSON.parse(row)]))
         );
