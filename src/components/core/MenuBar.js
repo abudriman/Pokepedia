@@ -21,9 +21,7 @@ function MenuBar() {
   return (
     <div>
       <Header>
-        <Link to="/">Home</Link>
-        <Link to="/pokemon">Detail</Link>
-        <Link to="/user">My Pokemon</Link>
+        <Link to="/">Home</Link> <Link to="/user">My Pokemon</Link>
       </Header>
     </div>
   );
