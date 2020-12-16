@@ -2,34 +2,53 @@ import React, { useContext, useState } from "react";
 import ListPokemon from "../components/ListPokemon";
 import OwnedContext from "../components/context/Owned";
 import ReactPaginate from "react-paginate";
-import PropType from "prop-types";
+
+import styled from "@emotion/styled";
+// import PropType from "prop-types";
+
+const StyledDiv = styled.div`
+ul.pagination {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+ul.pagination li {
+  display: inline;
+  cursor:pointer;
+}
+
+ul.pagination li a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+
+`;
 
 function Home({ loading, error, data }) {
-  console.log(data);
   const { owned } = useContext(OwnedContext);
   const [perPage] = useState(20);
+  //eslint-disable-next-line
   const [offset, setOffset] = useState(0);
   const [currentData, setCurrentData] = useState([]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
+  const pageCount = Math.ceil(data.pokemons.results.length / perPage);
   const updateCurrentData = (selected) => {
     let offset = Math.ceil(selected * perPage);
     setOffset(offset);
-    console.log("offset", offset);
     setCurrentData(data.pokemons.results.slice(offset, offset + perPage - 1));
   };
   const handlePageClick = (data) => {
     let selected = data.selected;
     updateCurrentData(selected);
-    console.log("selected", selected);
   };
 
-  const pageCount = Math.ceil(data.pokemons.results.length / perPage);
-
   return (
-    <div>
+    <StyledDiv>
       <h1>Pokemon List</h1>
       <i>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat dolores
@@ -38,6 +57,20 @@ function Home({ loading, error, data }) {
         adipisci et?
       </i>
       <p>total owned pokemon: {owned.length}</p>
+      <ReactPaginate
+        previousLabel={"previous"}
+        nextLabel={"next"}
+        breakLabel={"..."}
+        breakClassName={"break-me"}
+        initialPage={0}
+        pageCount={pageCount}
+        marginPagesDisplayed={1}
+        pageRangeDisplayed={9}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination"}
+        subContainerClassName={"pages pagination"}
+        activeClassName={"active"}
+      />
       <ul>
         {currentData.map((pokemon) => (
           <ListPokemon key={pokemon.id.toString()} item={pokemon}></ListPokemon>
@@ -57,7 +90,7 @@ function Home({ loading, error, data }) {
         subContainerClassName={"pages pagination"}
         activeClassName={"active"}
       />
-    </div>
+    </StyledDiv>
   );
 }
 

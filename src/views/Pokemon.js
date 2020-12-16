@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import ListType from "../components/ListType";
 import ListMove from "../components/ListMove";
-import { openDB } from "idb";
+import pokepedia from "../idb";
 import { v4 as uuidv4 } from "uuid";
 
 /* @jsxImportSource @emotion/react */
@@ -88,10 +88,9 @@ function Pokemon() {
   const { loading, error, data } = useQuery(Q_POKEMON_LIST, {
     variables: { pokemonName },
   });
-
-  //eslint-disable-next-line
   const { owned, setOwned } = useContext(OwnedContext);
 
+  //eslint-disable-next-line
   useEffect(() => {
     const getArtwork = function (url) {
       fetch(url)
@@ -126,8 +125,7 @@ function Pokemon() {
       icon: imgUrl.sprites.front_default,
       artwork: imgUrl.sprites.other["official-artwork"].front_default,
     };
-    const db1 = await openDB("pokepedia", 1);
-    db1
+    (await pokepedia.db1)
       .add("pokemon", JSON.stringify(obj), nickname)
       .then((result) => {
         setOwned((owned) => [...owned, obj]);
@@ -139,7 +137,6 @@ function Pokemon() {
           "You're already named other pokemon with that, try something else"
         );
       });
-    db1.close();
   };
 
   return (

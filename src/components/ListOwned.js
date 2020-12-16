@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import OwnedContext from "../components/context/Owned";
-import { openDB } from "idb";
+import pokepedia from "../idb";
 
 function ListOwned() {
   const { owned, setOwned } = useContext(OwnedContext);
@@ -8,8 +8,7 @@ function ListOwned() {
   const removePokemon = async (nickname) => {
     let confirm = window.confirm("are you sure?");
     if (confirm) {
-      const db1 = await openDB("pokepedia", 1);
-      db1
+      (await pokepedia.db1)
         .delete("pokemon", nickname)
         .then((result) => {
           setOwned([...owned.filter((owned) => owned.nickname !== nickname)]);
@@ -17,7 +16,6 @@ function ListOwned() {
         .catch((err) => {
           alert("nickname sudah dipake, cari nama yang lain ya");
         });
-      db1.close();
     }
   };
 
