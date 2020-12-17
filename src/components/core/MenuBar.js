@@ -7,23 +7,49 @@ import styled from "@emotion/styled";
 
 // eslint-disable-next-line
 const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10%;
   background: #333;
-  color: #fff;
+  color: var(--white-primary);
   text-align: center;
-  padding: 10px;
+  ul {
+    list-style: none;
+  }
+  ul li {
+    display: inline-block;
+    padding: 0px 20px;
+  }
   a {
-    color: #fff;
-    text-decration: none;
+    transition: all 0.3s ease 0s;
+    color: var(--white-secondary);
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    font-size: 15px;
+  }
+  a:hover {
+    color: var(--light-primary);
+  }
+  img {
+    cursor: pointer;
   }
 `;
 
 function MenuBar() {
   return (
-    <div>
-      <Header>
-        <Link to="/">Home</Link> <Link to="/user">My Pokemon</Link>
-      </Header>
-    </div>
+    <Header>
+      <img src="#" alt="logo" />
+      <ul>
+        <li>
+          <Link to="/">Home</Link>{" "}
+        </li>
+        <li>
+          <Link to="/user">My Pokémon</Link>
+        </li>
+      </ul>
+    </Header>
   );
 }
 
