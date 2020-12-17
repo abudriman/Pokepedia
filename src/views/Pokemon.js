@@ -12,6 +12,7 @@ import Loader from "react-loader-spinner";
 import { jsx, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import OwnedContext from "../components/context/Owned";
+import icon from "../icon_.png";
 
 const Q_POKEMON_LIST = gql`
   query Pokemon($pokemonName: String!) {

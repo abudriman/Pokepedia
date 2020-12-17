@@ -95,6 +95,13 @@ const StyledUl = styled.ul`
   }
 `;
 
+const StyledDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  div {
+    margin-top: 20%;
+  }
+`;
 function ListOwned({ owned, setOwned }) {
   const removePokemon = async (nickname) => {
     let confirm = window.confirm("are you sure?");
@@ -112,7 +119,13 @@ function ListOwned({ owned, setOwned }) {
   };
 
   if (owned.length === 0) {
-    return <p>You don't own any pokemon :(</p>;
+    return (
+      <StyledDiv>
+        <div>
+          <p>You don't own any pokemon :(</p>
+        </div>
+      </StyledDiv>
+    );
   } else {
     return (
       <StyledUl className="column clearUl">

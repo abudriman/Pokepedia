@@ -11,6 +11,7 @@ import styled from "@emotion/styled";
 //got no time to check proptype
 // import PropType from "prop-types";
 import Loader from "react-loader-spinner";
+import icon from "../icon_.png";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -181,7 +182,14 @@ function Home({ loading, error, data }) {
       `}
     >
       <span>
-        <img src={suggestion.image} alt="icon" />
+        <img
+          src={suggestion.image}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = { icon };
+          }}
+          alt="pokemon_icon"
+        />
       </span>
       <h2
         onClick={() => {

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import OwnedContext from "../components/context/Owned";
 import styled from "@emotion/styled";
+import icon from "../icon_.png";
 
 const countOwned = (array, id) => {
   let count = 0;
@@ -81,7 +82,15 @@ function ListPokemon({ currentData }) {
       }}
     >
       <div className="pokemon-image">
-        <img src={item.image} />
+        <img
+          src={item.image}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src =
+              "https://cdn.discordapp.com/attachments/764425388314198027/789166572782223400/Icon_Placeholder.png";
+          }}
+          alt="pokemon_icon"
+        />
       </div>
       <div className="pokemon-name">
         <h6>Name/Species:</h6>

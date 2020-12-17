@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // eslint-disable-next-line
 import { jsx } from "@emotion/react";
 import styled from "@emotion/styled";
+import logo from "../../pokepedia_.png";
 
 // eslint-disable-next-line
 const Header = styled.header`
@@ -14,6 +15,9 @@ const Header = styled.header`
   background: #333;
   color: var(--white-primary);
   text-align: center;
+  img {
+    max-width: 150px;
+  }
   ul {
     list-style: none;
   }
@@ -40,7 +44,7 @@ const Header = styled.header`
 function MenuBar() {
   return (
     <Header>
-      <img src="#" alt="logo" />
+      <img src={logo} alt="logo" />
       <ul>
         <li>
           <Link to="/">Home</Link>{" "}
